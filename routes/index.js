@@ -19,8 +19,17 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Mini Message Board", messages: messages });
 });
 
-router.get("/new", function (req, res, next) {
+router.get("/new", function (req, res) {
   res.render("form", { title: "Mini Message Board" });
+});
+
+router.post("/new", function (req, res) {
+  const msg = req.body.message;
+  const author = req.body.authorName;
+
+  messages.push({ text: msg, user: author, added: new Date() });
+
+  res.redirect("/");
 });
 
 module.exports = router;
